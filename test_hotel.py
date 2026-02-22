@@ -45,7 +45,7 @@ class TestHotel(unittest.TestCase):
         self.assertEqual(hotel.available_rooms, 3)
 
     def test_from_dict_missing_available_rooms(self):
-        """Test from_dict defaults available_rooms to total_rooms if missing."""
+        """Test from_dict defaults available_rooms to total_rooms."""
         data = {
             "hotel_id": "H3",
             "name": "Inn",
@@ -187,8 +187,10 @@ class TestHotel(unittest.TestCase):
         """Test save creates data directory if missing."""
         if os.path.exists("data"):
             shutil.rmtree("data")
-        hotels = {"H1": {"hotel_id": "H1", "name": "Test", "location": "X",
-                          "total_rooms": 1, "available_rooms": 1}}
+        hotels = {
+            "H1": {"hotel_id": "H1", "name": "Test", "location": "X",
+                   "total_rooms": 1, "available_rooms": 1}
+        }
         _save_hotels(hotels)
         self.assertTrue(os.path.exists(HOTELS_FILE))
 

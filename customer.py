@@ -14,7 +14,9 @@ def _load_customers():
         with open(CUSTOMERS_FILE, "r", encoding="utf-8") as f:
             data = json.load(f)
             if not isinstance(data, dict):
-                print("Error: customers file has invalid format. Starting fresh.")
+                print(
+                    "Error: customers file has invalid format. Starting fresh."
+                )
                 return {}
             return data
     except json.JSONDecodeError as e:
@@ -97,7 +99,7 @@ class Customer:
             print(f"Error: Customer with ID '{customer_id}' not found.")
             return None
         data = customers[customer_id]
-        print(f"--- Customer Info ---")
+        print("--- Customer Info ---")
         print(f"ID    : {data['customer_id']}")
         print(f"Name  : {data['name']}")
         print(f"Email : {data['email']}")

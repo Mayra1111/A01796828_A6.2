@@ -47,7 +47,9 @@ class TestCustomer(unittest.TestCase):
 
     def test_create_customer_success(self):
         """Test successful customer creation."""
-        customer = Customer.create_customer("C1", "Alice", "alice@mail.com", "123")
+        customer = Customer.create_customer(
+            "C1", "Alice", "alice@mail.com", "123"
+        )
         self.assertIsNotNone(customer)
         self.assertEqual(customer.name, "Alice")
 
@@ -137,8 +139,10 @@ class TestCustomer(unittest.TestCase):
         """Test save creates data directory if missing."""
         if os.path.exists("data"):
             shutil.rmtree("data")
-        customers = {"C1": {"customer_id": "C1", "name": "Test",
-                             "email": "t@t.com", "phone": "0"}}
+        customers = {
+            "C1": {"customer_id": "C1", "name": "Test",
+                   "email": "t@t.com", "phone": "0"}
+        }
         _save_customers(customers)
         self.assertTrue(os.path.exists(CUSTOMERS_FILE))
 

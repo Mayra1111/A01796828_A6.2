@@ -65,7 +65,9 @@ class Hotel:
             data["location"],
             data["total_rooms"],
         )
-        hotel.available_rooms = data.get("available_rooms", data["total_rooms"])
+        hotel.available_rooms = data.get(
+            "available_rooms", data["total_rooms"]
+        )
         return hotel
 
     @staticmethod
@@ -101,11 +103,13 @@ class Hotel:
             print(f"Error: Hotel with ID '{hotel_id}' not found.")
             return None
         data = hotels[hotel_id]
-        print(f"--- Hotel Info ---")
+        print("--- Hotel Info ---")
         print(f"ID       : {data['hotel_id']}")
         print(f"Name     : {data['name']}")
         print(f"Location : {data['location']}")
-        print(f"Rooms    : {data['available_rooms']}/{data['total_rooms']} available")
+        avail = data['available_rooms']
+        total = data['total_rooms']
+        print(f"Rooms    : {avail}/{total} available")
         return Hotel.from_dict(data)
 
     @staticmethod
@@ -150,8 +154,12 @@ class Hotel:
         if hotel_id not in hotels:
             print(f"Error: Hotel with ID '{hotel_id}' not found.")
             return False
-        if hotels[hotel_id]["available_rooms"] >= hotels[hotel_id]["total_rooms"]:
-            print(f"Error: All rooms already available in hotel '{hotel_id}'.")
+        avail = hotels[hotel_id]["available_rooms"]
+        total = hotels[hotel_id]["total_rooms"]
+        if avail >= total:
+            print(
+                f"Error: All rooms already available in hotel '{hotel_id}'."
+            )
             return False
         hotels[hotel_id]["available_rooms"] += 1
         _save_hotels(hotels)

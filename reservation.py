@@ -4,7 +4,6 @@ import json
 import os
 import uuid
 from hotel import Hotel
-from customer import Customer
 
 RESERVATIONS_FILE = "data/reservations.json"
 
@@ -17,7 +16,10 @@ def _load_reservations():
         with open(RESERVATIONS_FILE, "r", encoding="utf-8") as f:
             data = json.load(f)
             if not isinstance(data, dict):
-                print("Error: reservations file has invalid format. Starting fresh.")
+                print(
+                    "Error: reservations file "
+                    "has invalid format. Starting fresh."
+                )
                 return {}
             return data
     except json.JSONDecodeError as e:
@@ -67,7 +69,8 @@ def _load_hotels():
 class Reservation:
     """Represents a reservation linking a customer and a hotel."""
 
-    def __init__(self, reservation_id, customer_id, hotel_id, check_in, check_out):
+    def __init__(self, reservation_id, customer_id, hotel_id,
+                 check_in, check_out):
         """Initialize a Reservation instance."""
         self.reservation_id = reservation_id
         self.customer_id = customer_id
@@ -149,7 +152,7 @@ class Reservation:
             print(f"Error: Reservation '{reservation_id}' not found.")
             return None
         data = reservations[reservation_id]
-        print(f"--- Reservation Info ---")
+        print("--- Reservation Info ---")
         print(f"Reservation ID : {data['reservation_id']}")
         print(f"Customer ID    : {data['customer_id']}")
         print(f"Hotel ID       : {data['hotel_id']}")

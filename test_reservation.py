@@ -59,7 +59,9 @@ class TestReservation(unittest.TestCase):
 
     def test_create_reservation_success(self):
         """Test successful reservation creation."""
-        res = Reservation.create_reservation("C1", "H1", "2025-01-01", "2025-01-05")
+        res = Reservation.create_reservation(
+            "C1", "H1", "2025-01-01", "2025-01-05"
+        )
         self.assertIsNotNone(res)
         self.assertEqual(res.customer_id, "C1")
         self.assertEqual(res.hotel_id, "H1")
@@ -88,7 +90,9 @@ class TestReservation(unittest.TestCase):
     def test_create_reservation_no_rooms(self):
         """Test creating reservation when hotel has no rooms returns None."""
         Hotel.create_hotel("H_FULL", "Tiny", "NYC", 1)
-        Reservation.create_reservation("C1", "H_FULL", "2025-01-01", "2025-01-02")
+        Reservation.create_reservation(
+            "C1", "H_FULL", "2025-01-01", "2025-01-02"
+        )
         result = Reservation.create_reservation(
             "C1", "H_FULL", "2025-01-03", "2025-01-04"
         )
@@ -98,7 +102,9 @@ class TestReservation(unittest.TestCase):
 
     def test_cancel_reservation_success(self):
         """Test successful reservation cancellation."""
-        res = Reservation.create_reservation("C1", "H1", "2025-01-01", "2025-01-05")
+        res = Reservation.create_reservation(
+            "C1", "H1", "2025-01-01", "2025-01-05"
+        )
         result = Reservation.cancel_reservation(res.reservation_id)
         self.assertTrue(result)
         reservations = _load_reservations()
@@ -106,7 +112,9 @@ class TestReservation(unittest.TestCase):
 
     def test_cancel_reservation_restores_room(self):
         """Test that cancelling a reservation restores available rooms."""
-        res = Reservation.create_reservation("C1", "H1", "2025-01-01", "2025-01-05")
+        res = Reservation.create_reservation(
+            "C1", "H1", "2025-01-01", "2025-01-05"
+        )
         Reservation.cancel_reservation(res.reservation_id)
         from hotel import _load_hotels
         hotels = _load_hotels()
@@ -121,7 +129,9 @@ class TestReservation(unittest.TestCase):
 
     def test_display_reservation_success(self):
         """Test display returns correct Reservation object."""
-        res = Reservation.create_reservation("C1", "H1", "2025-01-01", "2025-01-05")
+        res = Reservation.create_reservation(
+            "C1", "H1", "2025-01-01", "2025-01-05"
+        )
         displayed = Reservation.display_reservation(res.reservation_id)
         self.assertIsNotNone(displayed)
         self.assertEqual(displayed.customer_id, "C1")
